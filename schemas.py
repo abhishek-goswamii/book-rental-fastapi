@@ -23,7 +23,7 @@ class RegisterResponse(BaseModel):
     id: int
     firstname: str
     email: str
-
+    
     class Config:
         orm_mode = True
 

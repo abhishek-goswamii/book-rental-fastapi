@@ -1,57 +1,9 @@
-from fastapi.testclient import TestClient
-from main import app
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 import os
-from database import get_db, Base
+import pytest
+import schemas
+from jose import jwt
 from dotenv import load_dotenv, dotenv_values
 load_dotenv()
-
-db_username = os.getenv("DATABASE_USERNAME")
-db_password = os.getenv("DATABASE_PASSWORD")
-
-db_url = f'postgresql://{db_username}:{db_password}@localhost/fastapi_testing'
-
-engine = create_engine(db_url)
-TestingSessionLocal = sessionmaker(
-    autocommit=False, autoflush=False, bind=engine)
-
-# Base.metadata.create_all(bind=engine)
-
-
-def overide_get_db():
-    db = TestingSessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-app.dependency_overrides[get_db] = overide_get_db
-
-
-@pytest.fixture()
-def session():
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@pytest.fixture()
-def client(session):
-    def override_get_db():
-        try:
-            yield session
-        finally:
-            session.close()
-    app.dependency_overrides[get_db] = override_get_db
-    yield TestClient(app)
 
 
 def test_root(client):
@@ -73,7 +25,20 @@ def test_register_user(client):
     assert res.status_code == 200
 
 
-def test_register_user_when_user_exists(client):
+def test_register_user_with_missing_field(client):
+    res = client.post('/register', json={
+        "firstname": "e",
+        "lastname": "e",
+        "email": "e",
+        "number": 1234567890,
+        "profile": "e",
+        "password": "e",
+    })
+    assert res.status_code == 422
+
+
+def test_register_user_when_user_exists(client, test_register_for_login):
+
     res = client.post('/register', json={
         "firstname": "e",
         "lastname": "e",
@@ -83,5 +48,44 @@ def test_register_user_when_user_exists(client):
         "password": "e",
         "isAdmin": "false"
     })
+
     assert res.json() == 'User already exists'
     assert res.status_code == 200
+
+
+def test_login_user(client, test_register_for_login):
+    res = client.post('/login', data={
+        "username": test_register_for_login['email'],
+        "password": test_register_for_login['password']
+    })
+    login_res = schemas.Token(**res.json())
+    payload = jwt.decode(login_res.access_token, os.getenv(
+        'SECRET_KEY'), algorithms=[os.getenv('ALGORITHM')])
+    id: str = str(payload.get("user_id"))
+    assert id == str(test_register_for_login['id'])
+    assert res.status_code == 200
+
+
+def test_login_user_with_wrong_password(client, test_register_for_login):
+    res = client.post('/login', data={
+        "username": test_register_for_login['email'],
+        "password": "wrong password"
+    })
+    assert res.status_code == 403
+    assert res.json() == {'detail': 'Invalid credentials'}
+
+
+def test_login_user_with_wrong_email(client, test_register_for_login):
+    res = client.post('/login', data={
+        "username": "wrong email",
+        "password": test_register_for_login['password']
+    })
+    assert res.status_code == 403
+    assert res.json() == {'detail': 'Invalid credentials'}
+
+
+def test_login_with_missing_field(client, test_register_for_login):
+    res = client.post('/login', data={
+        "username": test_register_for_login['email'],
+    })
+    assert res.status_code == 422
