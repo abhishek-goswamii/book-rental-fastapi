@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 from database import get_db, Base
 from dotenv import load_dotenv, dotenv_values
+from oauth2 import create_access_token
 load_dotenv()
 
 db_username = os.getenv("DATABASE_USERNAME")
@@ -63,6 +64,38 @@ def test_register_for_login(client):
         "number": 1234567890,
         "profile": "e",
         "password": "e",
+        "isAdmin": "true"
+    })
+    assert user_data.json().get('email') == 'e'
+    assert user_data.status_code == 200
+    new_user = user_data.json()
+    new_user['password'] = 'e'
+    return new_user
+
+
+@pytest.fixture()
+def token(test_register_for_login):
+    return create_access_token({"user_id": test_register_for_login['id']})
+
+
+@pytest.fixture()
+def authorized_client(client, token):
+    client.headers = {
+        **client.headers,
+        "Authorization": f"Bearer {token}"
+    }
+    return client
+
+
+@pytest.fixture()
+def test_register_non_admin_user(client):
+    user_data = client.post('/register', json={
+        "firstname": "e",
+        "lastname": "e",
+        "email": "e",
+        "number": 1234567890,
+        "profile": "e",
+        "password": "e",
         "isAdmin": "false"
     })
     assert user_data.json().get('email') == 'e'
@@ -70,3 +103,35 @@ def test_register_for_login(client):
     new_user = user_data.json()
     new_user['password'] = 'e'
     return new_user
+
+
+@pytest.fixture()
+def token_non_admin(test_register_non_admin_user):
+    return create_access_token({"user_id": test_register_non_admin_user['id']})
+
+
+@pytest.fixture()
+def authorized_client_non_admin(client, token_non_admin):
+    client.headers = {
+        **client.headers,
+        "Authorization": f"Bearer {token_non_admin}"
+    }
+    return client
+
+
+@pytest.fixture()
+def test_add_book_fixture(client):
+    
+    res = client.post('/add-book', json={
+        "Title": "c7",
+        "Author": "author3",
+        "Description": "sample book.",
+        "CoverImage": "book.jpg",
+        "Available": "true",
+        "RentingPeriod": 20,
+        "PricePerDay": 82
+    })
+    
+    assert res.json().get('Title') == 'c7'
+    assert res.status_code == 200
+    return res.json()

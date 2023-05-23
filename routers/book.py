@@ -18,13 +18,16 @@ async def register(book: schemas.AddBook, user_id: int = Depends(oauth2.get_curr
     user = db.query(models.User).filter(models.User.id == user_id).first()
 
     if not user.isAdmin:
-        return {"error": "Only librarians can add books"}
+        return {"error": "Only Admin can add books"}
 
     existing_book = db.query(models.Book).filter(
         models.Book.Title == book.Title).first()
 
     if existing_book:
         return "Book already exists"
+    
+    
+    
 
     new_book = models.Book(**book.dict())
     db.add(new_book)

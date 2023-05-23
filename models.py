@@ -14,7 +14,7 @@ class User(Base):
     profile = Column(String, nullable=True)
     password = Column(String, nullable=False)
     isAdmin = Column(Boolean, nullable=False, default=False)
-
+    
     
     book = relationship('Book', back_populates='user')
     reviews = relationship('Review', back_populates='user')
@@ -34,7 +34,7 @@ class Book(Base):
     Available = Column(Boolean)
     RentingPeriod = Column(Integer)
     PricePerDay = Column(Integer)
-
+    Genre = Column(String)
     UserID = Column(Integer, ForeignKey('users.id'), nullable=True)
 
     user = relationship("User", back_populates="book")

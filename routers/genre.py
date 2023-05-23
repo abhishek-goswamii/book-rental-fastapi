@@ -52,4 +52,5 @@ async def connectGenreBook(genreBook: schemas.ConnectGenreBook, user_id: int = D
     genre = book_id.genres
     genre.append(genre_id)
     db.commit()
+
     return "added"
