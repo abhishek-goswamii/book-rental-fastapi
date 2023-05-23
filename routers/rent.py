@@ -50,6 +50,22 @@ async def rentABook(rent: schemas.Rent, user_id: int = Depends(oauth2.get_curren
     return {"message": "Book rented successfully"}
 
 
+@router.get('/get-rented-books')
+async def getRentedBooks(user_id: int = Depends(oauth2.get_current_user), db: Session = Depends(get_db)):
+    
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+
+    if not user.isAdmin:
+        raise HTTPException(
+            status_code=400, detail="Only Admin can see all rented books")
+
+    rentals = db.query(models.Book).filter(
+        models.Book.Available == False
+    ).all()
+
+    return rentals
+
+
 @router.post('/return/{book_name}')
 async def returnABook(book_name: str, user_id: int = Depends(oauth2.get_current_user), db: Session = Depends(get_db)):
 
@@ -75,3 +91,4 @@ async def returnABook(book_name: str, user_id: int = Depends(oauth2.get_current_
     db.commit()
 
     return {"message": "Book returned successfully"}
+

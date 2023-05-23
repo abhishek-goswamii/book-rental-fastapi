@@ -15,7 +15,6 @@ class User(Base):
     password = Column(String, nullable=False)
     isAdmin = Column(Boolean, nullable=False, default=False)
     
-    
     book = relationship('Book', back_populates='user')
     reviews = relationship('Review', back_populates='user')
 
@@ -28,17 +27,19 @@ class Book(Base):
     BookID = Column(Integer, primary_key=True)
     Title = Column(String)
     Author = Column(String)
+    Genre = Column(String)
     Description = Column(String)
     CoverImage = Column(String)
-
     Available = Column(Boolean)
     RentingPeriod = Column(Integer)
     PricePerDay = Column(Integer)
-    Genre = Column(String)
+
     UserID = Column(Integer, ForeignKey('users.id'), nullable=True)
 
     user = relationship("User", back_populates="book")
+    
     genres = relationship('Genre', secondary='book_genres',back_populates='books')
+
     reviews = relationship('Review', back_populates='book')
     rentals = relationship('RentalCart', uselist=False, back_populates='book')
 

@@ -23,7 +23,7 @@ class RegisterResponse(BaseModel):
     id: int
     firstname: str
     email: str
-    
+
     class Config:
         orm_mode = True
 
@@ -45,6 +45,7 @@ class TokenData(BaseModel):
 class AddBook(BaseModel):
     Title: str
     Author: str
+    Genre: str
     Description: str
     CoverImage: str
     Available: bool

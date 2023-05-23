@@ -121,17 +121,42 @@ def authorized_client_non_admin(client, token_non_admin):
 
 @pytest.fixture()
 def test_add_book_fixture(client):
-    
+
     res = client.post('/add-book', json={
-        "Title": "c7",
+        "Title": "cc",
         "Author": "author3",
+        "Genre": "h",
         "Description": "sample book.",
         "CoverImage": "book.jpg",
         "Available": "true",
         "RentingPeriod": 20,
         "PricePerDay": 82
     })
-    
-    assert res.json().get('Title') == 'c7'
+
+    assert res.json().get('Title') == 'cc'
     assert res.status_code == 200
     return res.json()
+
+@pytest.fixture()
+def test_add_genre_fixture(client):
+            
+    res = client.post('/add-genre', json={
+                "GenreName": "genre1"
+            })
+    
+    assert res.json().get('GenreName') == 'genre1'
+    assert res.status_code == 200
+    return res.json()
+
+@pytest.fixture()
+def test_rent_book_fixture(authorized_client):
+    
+    res = authorized_client.post('/rentbook', json={
+        "BookName": "cc",
+        "RentalPeriod": 10,
+        "RentalDate": "2023-05-18",
+        "ReturnDate": "2023-05-28"
+    })
+    assert res.status_code == 200
+    assert res.json().get('message') == "Book rented successfully"
+    

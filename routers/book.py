@@ -25,14 +25,31 @@ async def register(book: schemas.AddBook, user_id: int = Depends(oauth2.get_curr
 
     if existing_book:
         return "Book already exists"
-    
-    
-    
 
     new_book = models.Book(**book.dict())
     db.add(new_book)
     db.commit()
+
+    existing_genre = db.query(models.Genre).filter(
+        models.Genre.GenreName == book.Genre).first()
+
+    if not existing_genre:
+        new_genre = models.Genre(GenreName=book.Genre)
+        db.add(new_genre)
+        db.commit()
+        print('genre added')
+
+    genre_obj = db.query(models.Genre).filter(
+        models.Genre.GenreName == book.Genre).first()
+
+    book_obj = db.query(models.Book).filter(
+        models.Book.Title == book.Title).first()
+
+    genres = book_obj.genres
+    genres.append(genre_obj)
+    db.commit()
     db.refresh(new_book)
+
     return new_book
 
 
@@ -42,7 +59,7 @@ async def deleteBook(bookname: str, user_id: int = Depends(oauth2.get_current_us
     user = db.query(models.User).filter(models.User.id == user_id).first()
 
     if not user.isAdmin:
-        return {"error": "Only librarians can delete books"}
+        return {"error": "Only Admin can delete books"}
 
     book = db.query(models.Book).filter(models.Book.Title == bookname).first()
 
