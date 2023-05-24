@@ -14,11 +14,16 @@ import oauth2
 from routers import rent, user, book, genre, review
 import auth
 from fastapi.middleware.cors import CORSMiddleware
-
+from jobs import job1
 
 # models.Base.metadata.create_all(bind=engine)
 
+# If the import statement executes without errors, smtplib is installed
+
 app = FastAPI()
+job1.scheduler.start()
+
+
 
 origins = [
     "http://www.google.com",

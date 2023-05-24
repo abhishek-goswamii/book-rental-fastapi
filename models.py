@@ -14,7 +14,7 @@ class User(Base):
     profile = Column(String, nullable=True)
     password = Column(String, nullable=False)
     isAdmin = Column(Boolean, nullable=False, default=False)
-    
+
     book = relationship('Book', back_populates='user')
     reviews = relationship('Review', back_populates='user')
 
@@ -37,8 +37,9 @@ class Book(Base):
     UserID = Column(Integer, ForeignKey('users.id'), nullable=True)
 
     user = relationship("User", back_populates="book")
-    
-    genres = relationship('Genre', secondary='book_genres',back_populates='books')
+
+    genres = relationship('Genre', secondary='book_genres',
+                          back_populates='books')
 
     reviews = relationship('Review', back_populates='book')
     rentals = relationship('RentalCart', uselist=False, back_populates='book')
@@ -54,6 +55,8 @@ class Genre(Base):
                          back_populates='genres')
 
 # many to many relationship of book and genre
+
+
 class BookGenre(Base):
     __tablename__ = 'book_genres'
 
@@ -91,6 +94,6 @@ class RentalCart(Base):
     RentalDate = Column(Date, default=func.current_date())
     ReturnDate = Column(Date)
     Active = Column(Boolean)
-
+    DueAmount = Column(Integer , default=0,nullable=False)
     user = relationship('User', back_populates='rentals')
     book = relationship('Book', back_populates='rentals')
