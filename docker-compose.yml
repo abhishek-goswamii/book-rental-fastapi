@@ -1,5 +1,16 @@
 version: "3.8"
 services:
+  api:
+    depends_on:
+      - db
+    build: .
+    image: book_rental:0.2
+    environment:
+      - DATABASE_HOSTNAME=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=fastapi
+    ports:
+      - "8000:8000"
   db:
     image: postgres
     container_name: postgres-fastapi

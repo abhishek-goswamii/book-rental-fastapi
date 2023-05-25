@@ -24,7 +24,6 @@ app = FastAPI()
 job1.scheduler.start()
 
 
-
 origins = [
     "http://www.google.com",
     "http://localhost",
@@ -48,17 +47,17 @@ app.include_router(review.router)
 app.include_router(rent.router)
 
 
-while True:
-    try:
-        conn = psycopg2.connect(host='localhost', port=5432, database='fastapi',
-                                user='postgres', password='postgres', cursor_factory=RealDictCursor)
-        cursor = conn.cursor()
-        print('database connected')
-        break
-    except Exception as error:
-        print('error: connection failed')
-        print(error)
-        time.sleep(2)
+# while True:
+#     try:
+#         conn = psycopg2.connect(host='localhost', port=5432, database='fastapi',
+#                                 user='postgres', password='postgres', cursor_factory=RealDictCursor)
+#         cursor = conn.cursor()
+#         print('database connected')
+#         break
+#     except Exception as error:
+#         print('error: connection failed')
+#         print(error)
+#         time.sleep(2)
 
 
 @app.get("/")

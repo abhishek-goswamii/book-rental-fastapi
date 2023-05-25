@@ -6,4 +6,4 @@ scheduler.add_job(send_book_rental_expiring_email, 'cron',
                   day_of_week='mon-sun', hour=0, minute=0, second=0)
 
 scheduler.add_job(send_book_rental_due_amount_mail, 'cron',
-                  day_of_week='mon-sun', hour=15, minute=49, second=0)
+                  day_of_week='mon-sun', hour=0, minute=0, second=0)
