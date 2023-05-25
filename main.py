@@ -18,7 +18,6 @@ from jobs import job1
 
 # models.Base.metadata.create_all(bind=engine)
 
-# If the import statement executes without errors, smtplib is installed
 
 app = FastAPI()
 job1.scheduler.start()
@@ -43,21 +42,7 @@ app.include_router(auth.router)
 app.include_router(book.router)
 app.include_router(genre.router)
 app.include_router(review.router)
-
 app.include_router(rent.router)
-
-
-# while True:
-#     try:
-#         conn = psycopg2.connect(host='localhost', port=5432, database='fastapi',
-#                                 user='postgres', password='postgres', cursor_factory=RealDictCursor)
-#         cursor = conn.cursor()
-#         print('database connected')
-#         break
-#     except Exception as error:
-#         print('error: connection failed')
-#         print(error)
-#         time.sleep(2)
 
 
 @app.get("/")
