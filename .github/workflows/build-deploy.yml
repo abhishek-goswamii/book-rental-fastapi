@@ -5,16 +5,16 @@ on: ['push', 'pull_request']
 jobs:
   job1:
     env:
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: postgres
-      SECRET_KEY: 98734n34iu5i3u983489n58989735345jhjkhjkhj3kh534589mc83834589cm
-      ALGORITHM: HS256
-      ACCESS_TOKEN_EXPIRE_MINUTES: 60
-      SMTPEMAIL: book-rentals121@outlook.com
-      SMTPPASSWORD: Password@121
-      HOSTNAME: db
-      PORT: 5432
-      DATABASE_NAME: fastapi
+      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITHM: ${{ secrets.ALGORITHM }}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+      SMTPEMAIL: ${{ secrets.SMTPEMAIL }}
+      SMTPPASSWORD: ${{ secrets.SMTPPASSWORD }}
+      HOSTNAME: ${{ secrets.HOSTNAME }}
+      PORT: ${{ secrets.PORT }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
 
     runs-on: ubuntu-latest
     
