@@ -42,9 +42,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: printing env variables
-        uses: echo ${{ env }}
-        
       - name: pulling repo
         uses: actions/checkout@v2
 
@@ -58,6 +55,9 @@ jobs:
 
       - name: installing dependencies
         run: pip install -r requirements.txt
+
+      - name: printing env variables
+        uses: echo ${{ env }}
 
       - name: testing
         run: pytest -v -s
