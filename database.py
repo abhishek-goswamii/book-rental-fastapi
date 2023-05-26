@@ -10,14 +10,8 @@ db_port = settings.PORT
 db_name = settings.DATABASE_NAME
 db_host = settings.HOSTNAME
 
-print(db_username)
-print(db_password)
-print(db_port)
-print(db_name)
-print(db_host)
-
-
 db_url = f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}'
+print(db_url)
 
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

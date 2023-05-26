@@ -8,13 +8,13 @@ from config import settings
 
 db_username = settings.DATABASE_USERNAME
 db_password = settings.DATABASE_PASSWORD
-db_host = settings.TESTING_DB_HOST
-db_port = settings.Testing_DB_PORT
-db_name = settings.TESTING_DB_NAME
+db_host = settings.HOSTNAME
+db_port = settings.PORT
+db_name = settings.DATABASE_NAME
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-print('testing url---------------->' + "sqlalchemy.url", f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
+
 config.set_main_option(
     "sqlalchemy.url", f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
 
