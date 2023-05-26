@@ -20,19 +20,17 @@ services:
   #     - ./:/usr/src/app
   #   command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
-  db:
+  db_test:
     image: postgres
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=${TESTING_DB_NAME}
+      - POSTGRES_DB=fastapi_testing
     ports:
       - "7878:5432"
     networks:
       - rental-network
-    volumes:
-      - db:/var/lib/postgresql/data
 
 volumes:
   db:
