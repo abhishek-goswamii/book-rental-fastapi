@@ -10,11 +10,10 @@ class Settings(BaseSettings):
     HOSTNAME:str
     PORT:int
     DATABASE_NAME:str
-    TEST:str
     TESTING_DB_NAME:str
     TESTING_DB_HOST:str
     Testing_DB_PORT:str
-    
+
     class Config:
         env_file=".env"
 

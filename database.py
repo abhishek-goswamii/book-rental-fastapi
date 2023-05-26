@@ -21,7 +21,7 @@ print(db_password)
 print(db_port)
 print(db_name)
 print(db_host)
-print(settings.TEST)
+
 
 db_url = f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}'
 
