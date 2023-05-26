@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     DATABASE_PASSWORD:str
     SECRET_KEY:str
     ALGORITHM:str
-    ACCESS_TOKEN_EXPIRE_MINUTES:str
+    ACCESS_TOKEN_EXPIRE_MINUTES:int
     SMTPPASSWORD:str
     HOSTNAME:str
     PORT:int

@@ -1,14 +1,10 @@
-import os
-from dotenv import load_dotenv, dotenv_values
 from mail.send_mail import send_email
 from datetime import datetime, timedelta
 from models import RentalCart, Book
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
-
-load_dotenv()
+from config import settings
 
 
 def send_book_rental_expiring_email():
@@ -17,11 +13,11 @@ def send_book_rental_expiring_email():
 
     expiration_date = today + timedelta(days=3)
 
-    db_username = os.getenv("DATABASE_USERNAME")
-    db_password = os.getenv("DATABASE_PASSWORD")
-    db_hostname = os.getenv("HOSTNAME")
-    db_port = os.getenv("PORT")
-    db_name = os.getenv("DATABASE_NAME")
+    db_username = settings.DATABASE_USERNAME
+    db_password = settings.DATABASE_PASSWORD
+    db_hostname = settings.HOSTNAME
+    db_port = settings.PORT
+    db_name = settings.DATABASE_NAME
 
     SQLALCHEMY_DATABASE_URL = f'postgresql://{db_username}:{db_password}@{db_hostname}:{db_port}/{db_name}'
 
