@@ -2,21 +2,19 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
 from alembic import context
 from models import Base
+from config import settings
 
-import os
-from dotenv import load_dotenv, dotenv_values
-load_dotenv()
+db_username = settings.DATABASE_USERNAME
+db_password = settings.DATABASE_PASSWORD
+db_host = settings.TESTING_DB_HOST
+db_port = settings.Testing_DB_PORT
+db_name = settings.TESTING_DB_NAME
 
-db_username = os.getenv("DATABASE_USERNAME")
-db_password = os.getenv("DATABASE_PASSWORD")
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
 config = context.config
 config.set_main_option(
-    "sqlalchemy.url", f'postgresql://{db_username}:{db_password}@localhost:5432/fastapi')
+    "sqlalchemy.url", f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
