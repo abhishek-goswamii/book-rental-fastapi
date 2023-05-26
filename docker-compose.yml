@@ -11,6 +11,14 @@ services:
     build: .
     image: book_rental:0.1
     environment:
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - SECRET_KEY=98734n34iu5i3u983489n58989735345jhjkhjkhj3kh534589mc83834589cm
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - SMTPEMAIL=book-rentals121@outlook.com
+      - SMTPPASSWORD=Password@121
+      - ENVV=fromdockerenv
       - HOSTNAME=db
       - PORT=5432
       - DATABASE_NAME=fastapi

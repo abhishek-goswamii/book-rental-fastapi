@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from config import settings
 import os
 from dotenv import load_dotenv, dotenv_values
 load_dotenv()
@@ -11,6 +10,14 @@ db_password = os.getenv("DATABASE_PASSWORD")
 db_port = os.getenv("PORT")
 db_name = os.getenv("DATABASE_NAME")
 db_host = os.getenv("HOSTNAME")
+testt = os.getenv("ENVV")
+
+print(db_username)
+print(db_password)
+print(db_port)
+print(db_name)
+print(db_host)
+print(testt)
 
 db_url = f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}'
 
