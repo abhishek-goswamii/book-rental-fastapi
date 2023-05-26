@@ -2,7 +2,7 @@ import os
 import pytest
 import schemas
 from jose import jwt
-
+from config import settings
 
 def test_root(client):
     res = client.get('/')
@@ -57,8 +57,7 @@ def test_login_user(client, test_register_for_login):
         "password": test_register_for_login['password']
     })
     login_res = schemas.Token(**res.json())
-    payload = jwt.decode(login_res.access_token, os.getenv(
-        'SECRET_KEY'), algorithms=[os.getenv('ALGORITHM')])
+    payload = jwt.decode(login_res.access_token, settings.SECRET_KEY , algorithms=[settings.ALGORITHM])
     id: str = str(payload.get("user_id"))
     assert id == str(test_register_for_login['id'])
     assert res.status_code == 200

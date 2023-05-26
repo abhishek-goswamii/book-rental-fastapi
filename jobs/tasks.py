@@ -37,8 +37,8 @@ def send_book_rental_expiring_email():
 
     for rental, book in expiring_rentals:
 
-        sender_email = os.getenv("SMTPEMAIL")
-        sender_password = os.getenv("SMTPPASSWORD")
+        sender_email = settings.SMTPEMAIL
+        sender_password = settings.SMTPPASSWORD
         recipient_email = 'abhishek.goswami2100@gmail.com'
         subject = 'Book Rental will expire within 3 days'
 
@@ -53,12 +53,12 @@ def send_book_rental_due_amount_mail():
     today = datetime.now().date()
 
     expiration_date = today + timedelta(days=3)
-
-    db_username = os.getenv("DATABASE_USERNAME")
-    db_password = os.getenv("DATABASE_PASSWORD")
-    db_hostname = os.getenv("HOSTNAME")
-    db_port = os.getenv("PORT")
-    db_name = os.getenv("DATABASE_NAME")
+    
+    db_username = settings.DATABASE_USERNAME
+    db_password = settings.DATABASE_PASSWORD
+    db_hostname = settings.HOSTNAME
+    db_port = settings.PORT
+    db_name = settings.DATABASE_NAME
 
     SQLALCHEMY_DATABASE_URL = f'postgresql://{db_username}:{db_password}@{db_hostname}:{db_port}/{db_name}'
 
@@ -89,8 +89,8 @@ def send_book_rental_due_amount_mail():
 
         db.commit()
 
-        sender_email = os.getenv("SMTPEMAIL")
-        sender_password = os.getenv("SMTPPASSWORD")
+        sender_email = settings.SMTPEMAIL
+        sender_password = settings.SMTPPASSWORD
         recipient_email = 'abhishek.goswami2100@gmail.com'
         subject = 'Book Rental period expired'
 

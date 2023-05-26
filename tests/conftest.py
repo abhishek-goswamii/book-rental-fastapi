@@ -7,16 +7,13 @@ from sqlalchemy.orm import sessionmaker
 import os
 from database import get_db, Base
 from config import settings
+from oauth2 import create_access_token
+db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.TESTING_DB_HOST}:{settings.Testing_DB_PORT}/{settings.TESTING_DB_NAME}'
 
-
-db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.Testing_DB_PORT}/{settings.TESTING_DB_NAME}'
-print(db_url)
 
 engine = create_engine(db_url)
 TestingSessionLocal = sessionmaker(
     autocommit=False, autoflush=False, bind=engine)
-
-# Base.metadata.create_all(bind=engine)
 
 
 def overide_get_db():
@@ -134,20 +131,22 @@ def test_add_book_fixture(client):
     assert res.status_code == 200
     return res.json()
 
+
 @pytest.fixture()
 def test_add_genre_fixture(client):
-            
+
     res = client.post('/add-genre', json={
-                "GenreName": "genre1"
-            })
-    
+        "GenreName": "genre1"
+    })
+
     assert res.json().get('GenreName') == 'genre1'
     assert res.status_code == 200
     return res.json()
 
+
 @pytest.fixture()
 def test_rent_book_fixture(authorized_client):
-    
+
     res = authorized_client.post('/rentbook', json={
         "BookName": "cc",
         "RentalPeriod": 10,
@@ -156,4 +155,3 @@ def test_rent_book_fixture(authorized_client):
     })
     assert res.status_code == 200
     assert res.json().get('message') == "Book rented successfully"
-    

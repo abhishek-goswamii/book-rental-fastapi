@@ -3,12 +3,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 from config import settings
-# db_username = os.getenv("DATABASE_USERNAME")
-# db_password = os.getenv("DATABASE_PASSWORD")
-# db_port = os.getenv("PORT")
-# db_name = os.getenv("DATABASE_NAME")
-# db_host = os.getenv("HOSTNAME")
-# testt = os.getenv("ENVV")
 
 db_username = settings.DATABASE_USERNAME
 db_password = settings.DATABASE_PASSWORD

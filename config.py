@@ -13,7 +13,9 @@ class Settings(BaseSettings):
     TESTING_DB_NAME:str
     TESTING_DB_HOST:str
     Testing_DB_PORT:str
-
+    SMTPEMAIL:str
+    SMTPPASSWORD:str
+    
     class Config:
         env_file=".env"
 
