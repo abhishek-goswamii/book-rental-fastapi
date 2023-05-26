@@ -6,14 +6,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 from database import get_db, Base
-from dotenv import load_dotenv, dotenv_values
-from oauth2 import create_access_token
-load_dotenv()
+from config import settings
 
-db_username = os.getenv("DATABASE_USERNAME")
-db_password = os.getenv("DATABASE_PASSWORD")
 
-db_url = f'postgresql://{db_username}:{db_password}@localhost/fastapi_testing'
+db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.Testing_DB_PORT}/{settings.TESTING_DB_NAME}'
+print(db_url)
 
 engine = create_engine(db_url)
 TestingSessionLocal = sessionmaker(
