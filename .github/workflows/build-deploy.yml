@@ -33,7 +33,7 @@ jobs:
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}_testing
         
         ports:
-          - 7878:5432
+          - 5432:5432
         
         options: >-
           --health-cmd pg_isready

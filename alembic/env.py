@@ -14,6 +14,7 @@ db_name = settings.TESTING_DB_NAME
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+print('testing url---------------->' + "sqlalchemy.url", f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
 config.set_main_option(
     "sqlalchemy.url", f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
 
