@@ -15,7 +15,7 @@ from routers import rent, user, book, genre, review
 import auth
 from fastapi.middleware.cors import CORSMiddleware
 from jobs import job1
-
+from config import settings
 # models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -46,6 +46,7 @@ app.include_router(rent.router)
 
 @app.get("/")
 async def root():
+    print(settings.check)
     return {"message": "homepage"}
 
 
