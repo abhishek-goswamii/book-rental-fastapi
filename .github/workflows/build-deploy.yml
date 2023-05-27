@@ -43,6 +43,6 @@ jobs:
 
       - name: testing
         run: |
-          sudo docker-compose up -d 
-          sudo docker ps 
+          docker-compose up -d 
+          docker ps 
           pytest -v -s
