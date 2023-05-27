@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     DATABASE_NAME:str
     TESTING_DB_NAME:str
     TESTING_DB_HOST:str
-    Testing_DB_PORT:str
+    TESTING_DB_PORT:int
     SMTPEMAIL:str
     SMTPPASSWORD:str
     

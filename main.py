@@ -18,7 +18,6 @@ from jobs import job1
 
 # models.Base.metadata.create_all(bind=engine)
 
-
 app = FastAPI()
 job1.scheduler.start()
 

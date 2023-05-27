@@ -4,14 +4,12 @@ import schemas
 from jose import jwt
 
 from config import settings
-db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.TESTING_DB_HOST}:{settings.Testing_DB_PORT}/{settings.TESTING_DB_NAME}'
+db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.TESTING_DB_HOST}:{settings.TESTING_DB_PORT}/{settings.TESTING_DB_NAME}'
 print(db_url)
 
 
 def test_add_book(authorized_client):
-    db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.TESTING_DB_HOST}:{settings.Testing_DB_PORT}/{settings.TESTING_DB_NAME}'
-    print(db_url)
-    print('-----------------dburl upside')
+
     res = authorized_client.post('/add-book', json={
         "Title": "cc",
         "Author": "author3",

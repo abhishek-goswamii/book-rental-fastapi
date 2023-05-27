@@ -9,9 +9,7 @@ from database import get_db, Base
 from config import settings
 from oauth2 import create_access_token
 
-db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.TESTING_DB_HOST}:{settings.Testing_DB_PORT}/{settings.TESTING_DB_NAME}'
-print('-----------------dburl downsidt++++++++++++++++')
-print(db_url)
+db_url = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.TESTING_DB_HOST}:{settings.TESTING_DB_PORT}/{settings.TESTING_DB_NAME}'
 
 engine = create_engine(db_url)
 TestingSessionLocal = sessionmaker(
@@ -32,7 +30,7 @@ app.dependency_overrides[get_db] = overide_get_db
 @pytest.fixture()
 def session():
     Base.metadata.drop_all(bind=engine)
-   
+
     Base.metadata.create_all(bind=engine)
     db = TestingSessionLocal()
     try:

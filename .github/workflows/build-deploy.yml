@@ -19,7 +19,7 @@ jobs:
       DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
       TESTING_DB_NAME: ${{ secrets.TESTING_DB_NAME }}
       TESTING_DB_HOST: ${{ secrets.TESTING_DB_HOST }}
-      Testing_DB_PORT: ${{ secrets.Testing_DB_PORT }}
+      TESTING_DB_PORT: ${{ secrets.Testing_DB_PORT }}
 
     # services:
     #   postgres:
