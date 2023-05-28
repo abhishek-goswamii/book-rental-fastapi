@@ -4,26 +4,6 @@ on: ["push", "pull_request"]
 
 jobs:
   job1:
-    environment:
-      name: testing
-    env:
-      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      ALGORITHM: ${{ secrets.ALGORITHM }}
-      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
-      SMTPEMAIL: ${{ secrets.SMTPEMAIL }}
-      SMTPPASSWORD: ${{ secrets.SMTPPASSWORD }}
-      HOSTNAME: ${{ secrets.HOSTNAME }}
-      PORT: ${{ secrets.PORT }}
-      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-      TESTING_DB_NAME: ${{ secrets.TESTING_DB_NAME }}
-      TESTING_DB_HOST: ${{ secrets.TESTING_DB_HOST }}
-      TESTING_DB_PORT: ${{ secrets.TESTING_DB_PORT }}
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-
     runs-on: ubuntu-latest
 
     steps:
@@ -46,3 +26,4 @@ jobs:
           docker-compose up -d 
           docker ps 
           pytest -v -s
+          
