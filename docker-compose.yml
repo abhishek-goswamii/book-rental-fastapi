@@ -14,6 +14,8 @@ services:
     volumes:
       - ./:/usr/src/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - fastapi_rental-network
 
   db:
     image: postgres
@@ -26,6 +28,8 @@ services:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      - fastapi_rental-network
 
   testing_db:
     image: postgres
@@ -38,7 +42,13 @@ services:
       - "5436:5432"
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      - fastapi_rental-network
 
 volumes:
   db:
     driver: local
+
+networks:
+  fastapi_rental-network:
+    driver: bridge

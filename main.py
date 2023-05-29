@@ -23,9 +23,7 @@ job1.scheduler.start()
 
 
 origins = [
-    "http://www.google.com",
-    "http://localhost",
-    "http://localhost:8080",
+    "*",
 ]
 
 app.add_middleware(
@@ -46,7 +44,6 @@ app.include_router(rent.router)
 
 @app.get("/")
 async def root():
-    print(settings.check)
     return {"message": "homepage"}
 
 
