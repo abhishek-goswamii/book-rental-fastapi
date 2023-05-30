@@ -6,7 +6,7 @@ services:
       - db
       - testing_db
     build: .
-    image: abhishekgoswami/book_rental:0.1
+    image: abhishekgoswami/book_rental
     env_file:
       - .env
     ports:

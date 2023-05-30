@@ -71,7 +71,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/book_rental:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/book_rental
       
       - name: SSH into EC2 instance and deploy
         uses: actions/checkout@v2
