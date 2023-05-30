@@ -72,3 +72,16 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/book_rental:latest
+      
+      - name: SSH into EC2 instance and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ip-172-31-8-206
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /home/ubuntu/book-rental-fastapi
+            sudo docker-compose down
+            sudo docker-compose pull
+            sudo docker-compose up -d
