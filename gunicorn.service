@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve your FastAPI application
+After=network.target
+
+[Service]
+User=ubuntu  # Replace with the appropriate user
+Group=www-data  # Replace with the appropriate group
+WorkingDirectory=/path/to/your/fastapi/app  # Replace with the actual path to your FastAPI app directory
+ExecStart=/usr/local/bin/gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
