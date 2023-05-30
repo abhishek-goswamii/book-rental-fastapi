@@ -79,7 +79,7 @@ jobs:
     needs: testing
     steps:
       - name: SSH into EC2 instance and deploy
-        uses: actions/ssh@v3
+        uses: appleboy/ssh-action@master
         with:
           host: 13.126.159.170
           username: ubuntu
