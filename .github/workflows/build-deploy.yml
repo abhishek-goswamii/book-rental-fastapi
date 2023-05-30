@@ -74,9 +74,9 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/book_rental:latest
       
       - name: SSH into EC2 instance and deploy
-        uses: appleboy/ssh-action@master
+        uses: actions/checkout@v2
         with:
-          host: ip-172-31-8-206
+          host: 13.126.159.170
           username: ubuntu
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           port: 22
