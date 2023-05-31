@@ -44,7 +44,7 @@ app.include_router(rent.router)
 
 @app.get("/")
 async def root():
-    return {"message": "13:05"}
+    return {"message": "14:32"}
 
 
 @app.get("/admin")
