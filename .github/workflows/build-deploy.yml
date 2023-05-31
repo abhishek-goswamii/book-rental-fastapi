@@ -83,10 +83,15 @@ jobs:
     needs: testing
     
     steps:
+      - name: Get EC2 instance IP
+        id: get_ip
+        run: |
+          echo "::set-output name=ip_address::$(aws ec2 describe-instances --instance-id i-039cead54d6c6bddf --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)"
+
       - name: SSH into EC2 instance and deploy
         uses: appleboy/ssh-action@master
         with:
-          host: 52.66.251.107
+          host: ${{ steps.get_ip.outputs.ip_address }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           port: 22
