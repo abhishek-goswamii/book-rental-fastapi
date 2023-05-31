@@ -83,10 +83,19 @@ jobs:
     needs: testing
     
     steps:
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1 # Replace with your AWS region
+
       - name: Get EC2 instance IP
         id: get_ip
         run: |
-          echo "::set-output name=ip_address::$(aws ec2 describe-instances --instance-id i-039cead54d6c6bddf --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)"
+          instance_id="i-039cead54d6c6bddf"
+          ip_address=$(aws ec2 describe-instances --instance-id "$instance_id" --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+          echo "::set-output name=ip_address::$ip_address"
 
       - name: SSH into EC2 instance and deploy
         uses: appleboy/ssh-action@master
