@@ -8,7 +8,7 @@ from config import settings
 
 db_username = settings.DATABASE_USERNAME
 db_password = settings.DATABASE_PASSWORD
-db_host = settings.HOSTNAME
+db_host = 'localhost'
 db_port = settings.PORT
 db_name = settings.DATABASE_NAME
 # this is the Alembic Config object, which provides

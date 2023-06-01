@@ -108,5 +108,6 @@ jobs:
             cd /home/ubuntu/book-rental-fastapi
             sudo docker-compose down
             git pull origin master
+            alembic upgrade head
             sudo docker-compose pull
             sudo docker-compose up -d
