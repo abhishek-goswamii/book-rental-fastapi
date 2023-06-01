@@ -41,13 +41,11 @@ services:
       - fastapi_rental-network
 
   nginx:
-    image: nginx
+    image: nginx:latest
     ports:
-      - "443:443"
+      - 80:80
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./key.pem:/root/ssl/key.pem
-      - ./cert.pem:/root/ssl/cert.pem
+      - ./nginx.conf:/etc/nginx/nginx.conf
     networks:
       - fastapi_rental-network
     depends_on:
