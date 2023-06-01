@@ -110,5 +110,4 @@ jobs:
             git pull origin master
             sudo docker-compose pull
             sudo docker-compose up -d
-            alembic upgrade head
             
