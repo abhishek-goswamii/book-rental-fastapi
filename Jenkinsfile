@@ -4,6 +4,7 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up environment...'
+                sh 'docker-compose down' 
                 sh 'docker-compose up -d' 
             }
         }
