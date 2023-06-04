@@ -15,10 +15,19 @@ pipeline {
                 sh 'python3 venv/bin/pytest' 
             }
         }
+
+        stage('Build and Push Image') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t abhishekgoswami/book_rental .'
+                sh 'docker push abhishekgoswami/abhishekgoswami/book_rental'
+            }
+        }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                // Add your deployment steps here
+             
             }
         }
         stage('Cleanup') {
