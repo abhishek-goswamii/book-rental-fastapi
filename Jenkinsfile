@@ -34,7 +34,7 @@ pipeline {
                     echo 'Deploying....'
                     sh 'chmod 400 awsbookrentalkey.pem' // Set the correct permissions for the key file
                     sshagent(['ssh-credentials-id']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-3-7-70-144.ap-south-1.compute.amazonaws.com "echo Hello from the EC2 instance"'
+                        sh 'ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-43-204-214-79.ap-south-1.compute.amazonaws.com'
                         sh 'sudo rm -rf book-rental-fastapi/'
                         sh 'git clone git@github.com:abhishek-goswamii/book-rental-fastapi.git'
                         sh 'cd book-rental-fastapi'
