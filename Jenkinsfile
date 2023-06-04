@@ -40,7 +40,7 @@ pipeline {
                     sh 'echo "ec2 success"'
                 }
             }
-            
+
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up...'
