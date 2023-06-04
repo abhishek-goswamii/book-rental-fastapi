@@ -37,10 +37,12 @@ pipeline {
                                 chmod 400 awsbookrentalkey.pem
                                 ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-43-204-214-79.ap-south-1.compute.amazonaws.com '
                                     whoami
-                                    docker ps
-                                    cd book-rental-fastapi
-                                    docker-compose down
-                                    docker-compose up -d
+                                    sudo rm -rf book-rental-fastapi/
+                                    git clone git@github.com:abhishek-goswamii/book-rental-fastapi.git
+                                    cd book-rental-fastapi/
+                                    sudo docker-compose down
+                                    sudo docker-compose up -d
+                                    sudo docker ps
                                 '
                             """
                             sh sshCommand
