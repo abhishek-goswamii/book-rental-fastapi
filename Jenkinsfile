@@ -30,16 +30,17 @@ pipeline {
         // }
 
         stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-                sshagent(['ssh-credentials-id']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-3-7-70-144.ap-south-1.compute.amazonaws.com "echo Hello from the EC2 instance"'
-                    // Replace "ubuntu@ec2-3-7-70-144.ap-south-1.compute.amazonaws.com" with the EC2 instance SSH address
-                    sh 'echo "Deployed successfully!"'
-                }
+                steps {
+                    echo 'Deploying....'
+                    sh 'chmod 400 awsbookrentalkey.pem' // Set the correct permissions for the key file
+                    sshagent(['ssh-credentials-id']) {
+                        sh 'ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-3-7-70-144.ap-south-1.compute.amazonaws.com "echo Hello from the EC2 instance"'
+                        sh 'echo "Deployed successfully!"'
+                    }
                     sh 'echo "ec2 success"'
+                }
             }
-        }
+            
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up...'
