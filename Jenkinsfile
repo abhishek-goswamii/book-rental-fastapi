@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build -t abhishekgoswami/book_rental .'
-                sh 'docker push abhishekgoswami/abhishekgoswami/book_rental'
+                sh 'docker push abhishekgoswami/book_rental'
             }
         }
 
