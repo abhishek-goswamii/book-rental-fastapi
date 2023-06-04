@@ -20,6 +20,7 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build -t abhishekgoswami/book_rental .'
+                sh 'docker login -u abhishekgoswami -p Sbi@0585555'
                 sh 'docker push abhishekgoswami/book_rental'
             }
         }
