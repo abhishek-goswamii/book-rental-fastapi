@@ -35,8 +35,6 @@ pipeline {
                     sh 'chmod 400 awsbookrentalkey.pem' // Set the correct permissions for the key file
                     sshagent(['ssh-credentials-id']) {
                         sh 'ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-43-204-214-79.ap-south-1.compute.amazonaws.com'
-                        sh 'sudo rm -rf book-rental-fastapi/'
-                        sh 'git clone git@github.com:abhishek-goswamii/book-rental-fastapi.git'
                         sh 'cd book-rental-fastapi'
                         sh 'docker-compose down'
                         sh 'docker-compose up -d'
