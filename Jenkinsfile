@@ -30,20 +30,24 @@ pipeline {
         // }
 
         stage('Deploy') {
-                steps {
-                    echo 'Deploying....'
-                    sh 'chmod 400 awsbookrentalkey.pem' // Set the correct permissions for the key file
-                    sshagent(['ssh-credentials-id']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-43-204-214-79.ap-south-1.compute.amazonaws.com'
-                        sh 'whoami'
-                        sh 'docker ps'
-                        sh 'cd book-rental-fastapi'
-                        sh 'docker-compose down'
-                        sh 'docker-compose up -d'
+                    steps {
+                        echo 'Deploying....'
+                        script {
+                            def sshCommand = """
+                                chmod 400 awsbookrentalkey.pem
+                                ssh -o StrictHostKeyChecking=no -i awsbookrentalkey.pem ubuntu@ec2-43-204-214-79.ap-south-1.compute.amazonaws.com '
+                                    whoami
+                                    docker ps
+                                    cd book-rental-fastapi
+                                    docker-compose down
+                                    docker-compose up -d
+                                '
+                            """
+                            sh sshCommand
+                        }
+                        echo 'Deployed successfully!'
                     }
-                    sh 'echo "Deployed successfully!"'
                 }
-            }
 
         stage('Cleanup') {
             steps {
