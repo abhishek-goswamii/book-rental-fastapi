@@ -37,6 +37,7 @@ pipeline {
                     // Replace "ubuntu@ec2-3-7-70-144.ap-south-1.compute.amazonaws.com" with the EC2 instance SSH address
                     sh 'echo "Deployed successfully!"'
                 }
+                    sh 'echo "ec2 success"'
             }
         }
         stage('Cleanup') {
