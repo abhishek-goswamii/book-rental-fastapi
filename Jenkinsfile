@@ -40,6 +40,7 @@ pipeline {
                                     sudo rm -rf book-rental-fastapi/
                                     git clone git@github.com:abhishek-goswamii/book-rental-fastapi.git
                                     cd book-rental-fastapi/
+                                    sudo docker pull abhishekgoswami/book_rental
                                     sudo docker-compose down
                                     sudo docker-compose up -d
                                     sudo docker ps
