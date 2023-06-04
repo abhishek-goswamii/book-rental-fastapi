@@ -20,7 +20,11 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build -t abhishekgoswami/book_rental .'
-                sh 'docker login -u abhishekgoswami -p Sbi@0585555'
+                
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_id', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                }
+                
                 sh 'docker push abhishekgoswami/book_rental'
             }
         }
@@ -28,7 +32,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-             
+                // Add your deployment steps here
             }
         }
         stage('Cleanup') {
